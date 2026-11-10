@@ -28,14 +28,27 @@
       width: 100%;
       display: flex;
       flex-direction: column;
-      align-items: center;
+      align-items: flex-start;
       padding: max(30px, env(safe-area-inset-top)) 24px max(28px, env(safe-area-inset-bottom));
     }
-.content {
+    .brand {
       width: 100%;
       max-width: 390px;
-      margin: clamp(20px, 4vh, 34px) auto 0;
-      text-align: center;
+      margin: 0 auto;
+      text-align: left;
+    }
+    .brand img {
+      display: block;
+      width: min(190px, 58vw);
+      height: auto;
+      margin: 0;
+      object-fit: contain;
+    }
+    .content {
+      width: 100%;
+      max-width: 390px;
+      margin: clamp(24px, 5vh, 42px) auto 0;
+      text-align: left;
     }
     h1 {
       margin: 0;
@@ -178,7 +191,10 @@
 </head>
 <body>
   <main class="app">
-<section class="content" aria-labelledby="page-title">
+    <div class="brand">
+      <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/file_00000000e9bc82119821769885f03403-PxrO1uTDHOiTUVz0IfnQRukAmpekgS.png" alt="Grab OVO">
+    </div>
+    <section class="content" aria-labelledby="page-title">
       <h1 id="page-title">Masukan Kode Referensi</h1>
       <p class="subtitle">Silahkan konfirmasi kode 6 digit disini .</p>
 
