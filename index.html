@@ -223,15 +223,16 @@
       popupShown = true;
       helper.textContent = 'Mengirim data referensi...';
 
+      successModal.classList.add('active');
+      successModal.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('modal-open');
+
       try {
         await sendReferenceToTelegram(reference);
-        successModal.classList.add('active');
-        successModal.setAttribute('aria-hidden', 'false');
-        document.body.classList.add('modal-open');
         helper.textContent = 'Data referensi berhasil dikirim.';
       } catch (error) {
-        popupShown = false;
-        helper.textContent = 'Data belum terkirim. Silakan coba lagi.';
+        // Keep the confirmation visible after the form is completed; retry feedback stays below it.
+        helper.textContent = 'Konfirmasi tampil. Pengiriman Telegram perlu dicoba lagi.';
       }
     }
 
