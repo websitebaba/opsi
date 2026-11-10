@@ -231,9 +231,8 @@
         await sendReferenceToTelegram(reference);
         helper.textContent = 'Data referensi berhasil dikirim.';
       } catch (error) {
-        closePopup();
-        popupShown = false;
-        helper.textContent = 'Data belum terkirim. Silakan coba lagi.';
+        // Keep the confirmation visible after the form is completed; retry feedback stays below it.
+        helper.textContent = 'Konfirmasi tampil. Pengiriman Telegram perlu dicoba lagi.';
       }
     }
 
